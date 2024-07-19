@@ -1,7 +1,7 @@
 package com.example.todo_application.services;
 
 import com.example.todo_application.models.TodoItem;
-import com.example.todo_application.repozitories.TodoItemRepository;
+import com.example.todo_application.repositories.TodoItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,31 +1,37 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Todo</title>
+    <title>Add New Todo Item</title>
     <!-- Підключення стилів Bootstrap через CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <!-- Підключення стилів Font Awesome через CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/styles.css"> <!-- Ваш CSS -->
 </head>
 <body>
 
 <div class="container">
     <div class="row mt-5">
-        <div class="col-8">
-            <h2>Add a new Todo Item</h2>
+        <div class="col-md-8 mx-auto">
+            <h2 class="mb-4">Add a New Todo Item</h2>
             <form action="#" th:action="@{/todo}" th:object="${todoItem}" method="POST">
-                <div class="form-group">
+                <div class="form-group mb-3">
                     <label for="description">Description</label>
                     <input class="form-control"
                            type="text"
                            th:field="*{description}"
                            id="description"
-                           placeholder="Description">
+                           placeholder="Description"
+                           required>
                 </div>
-                <div class="mt-3">
+                <div class="form-group mb-3">
+                    <label for="isComplete">Mark as Complete</label>
+                    <input type="checkbox" th:field="*{isComplete}" id="isComplete">
+                </div>
+                <div class="mb-3">
                     <button type="submit" class="btn btn-outline-success">
                         <i class="bi bi-plus-square-fill"></i> Add Todo
                     </button>
@@ -37,7 +43,6 @@
         </div>
     </div>
 </div>
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/js/all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

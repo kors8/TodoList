@@ -63,3 +63,6 @@ Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Wrong user name
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:522)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
 	... 50 more
+2024-07-14 11:36:09.721035+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION CHARACTER VARYING(255)": "U&'If it was easy to work with numbers in computer programming, it would be even... (556)"; SQL statement:
+insert into todo_items (created_at,description,is_complete,updated_at,id) values (?,?,?,?,default) [22001-224]

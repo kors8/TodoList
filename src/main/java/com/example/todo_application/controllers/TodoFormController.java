@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 @Controller
 
 public class TodoFormController {
@@ -25,10 +30,11 @@ public class TodoFormController {
 
     @PostMapping("/todo")
     public String createTodoItem(@Valid TodoItem todoItem, BindingResult result, Model model){
-        TodoItem item = new TodoItem();
-        item.setDescription(todoItem.getDescription());
-        item.setIsComplete(todoItem.getIsComplete());
+        if(result.hasErrors()){
+            return "new-todo-item";
+        }
 
+        todoItem.setIsComplete(false);
         todoItemService.save(todoItem);
         return "redirect:/";
     }
@@ -53,12 +59,19 @@ public class TodoFormController {
 
     @PostMapping("/todo/{id}")
     public String updateTodoItem(@PathVariable("id") Long id, @Valid TodoItem todoItem, BindingResult result) {
+        if (result.hasErrors()){
+            return "edit-todo";
+        }
+
         TodoItem item = todoItemService
                 .getById(id)
                 .orElseThrow(() -> new IllegalArgumentException("TodoItem id " + id + " not found"));
 
-        item.setIsComplete(todoItem.getIsComplete());
         item.setDescription(todoItem.getDescription());
+        item.setIsComplete(todoItem.getIsComplete());
+
+        item.setUpdatedAt(Instant.now());
+
         todoItemService.save(item);
 
         return "redirect:/";

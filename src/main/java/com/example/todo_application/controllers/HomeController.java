@@ -6,6 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 @Controller
 
 public class HomeController {
@@ -13,9 +16,19 @@ public class HomeController {
     private TodoItemService todoItemService;
 
     @GetMapping("/") // root controller handler
-    public ModelAndView root(){
-        ModelAndView modelAndView = new ModelAndView("root");
+    public String root() {
+        return "redirect:/today";
+    }
+
+    @GetMapping("/today")
+    public ModelAndView getTodayPage() {
+        ModelAndView modelAndView = new ModelAndView("today");
         modelAndView.addObject("todoItems", todoItemService.getAll());
+
+        LocalDate today = LocalDate.now();
+        String formattedDate = today.format(DateTimeFormatter.ofPattern("dd MMM"));
+
+        modelAndView.addObject("currentDate", formattedDate);
         return modelAndView;
     }
 }

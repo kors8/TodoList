@@ -19,8 +19,18 @@ public class TodoItem implements Serializable {
     private Long id;
     private String description;
     private Boolean isComplete;
+
+    @Column(name = "created_at")
     private Instant createdAt;
+
+    @Column(name = "updated_at")
     private Instant updatedAt;
+
+    @PrePersist
+    protected void onCreate(){
+        createdAt = Instant.now();
+        updatedAt = Instant.now();
+    }
 
     @Override
     public String toString() {

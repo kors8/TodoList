@@ -1,0 +1,79 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+<div class="sidebar">
+    <h2>Todoist</h2>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link active" href="#"><i class="fas fa-inbox"></i> Inbox</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fas fa-calendar-day"></i> Today</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fas fa-calendar-week"></i> Upcoming</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fas fa-project-diagram"></i> Projects</a>
+        </li>
+    </ul>
+</div>
+
+<div class="content">
+    <h1 class="text-left">My Tasks</h1>
+    <div class="date-btn" id="modalBtn" th:text="${currentDate} + ' ‧ Today'"></div>
+
+    <div class="task-list">
+        <div class="task-item" th:each="item : ${todoItems}">
+            <span th:text="${item.description}"></span>
+            <span>
+                    <button class="btn btn-sm btn-outline-info" th:attr="onclick='openModal(\'' + ${item.id} + '\', \'' + ${item.description} + '\')'">
+                        <i class="fas fa-cog"></i> Edit/Delete
+                    </button>
+                </span>
+            </span>
+        </div>
+        <p>
+            <a class="btn" th:href="@{/create-todo}">
+                <i class="fas fa-plus"></i> Create a Todo
+            </a>
+        </p>
+    </div>
+
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="modal-header">Edit Task</h2>
+            <div class="modal-body">
+                <input type="text" id="taskName" placeholder="Task Name">
+                <select id="dueDate">
+                    <option value="no-date">No Date</option>
+                    <option value="tomorrow">Tomorrow</option>
+                    <option value="next-week">Next Week</option>
+                </select>
+                <select id="priority">
+                    <option value="1">Priority 1</option>
+                    <option value="2">Priority 2</option>
+                    <option value="3">Priority 3</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button id="saveChanges" class="btn-save">Save Changes</button>
+                <button id="deleteTask" class="btn-delete">Delete Task</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="/static/js/modal.js"></script>
+</body>
+</html>
